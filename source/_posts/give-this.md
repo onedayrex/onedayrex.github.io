@@ -1,0 +1,5 @@
+#give code 
+
+```
+cd /home/
+```
