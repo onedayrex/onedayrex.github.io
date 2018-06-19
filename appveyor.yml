@@ -1,6 +1,6 @@
 clone_depth: 5
 environment:
-access_token:
+  access_token:
     secure: KWCYUZgsO7Qs3CPK16U2exstXTJ4JFcOYQ0lwyNXY9i8stlP43Zk9kX4wL4LWjud
 
 install:
