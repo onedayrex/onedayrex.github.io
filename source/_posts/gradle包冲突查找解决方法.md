@@ -1,6 +1,6 @@
 
 ---
-title: gradle包冲突查询解决方法
+title: gradle包冲突查找解决方法
 ---
 
 ```
