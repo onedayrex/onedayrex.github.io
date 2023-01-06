@@ -35,6 +35,7 @@ jobs:
         REPO: github.com/onedayrex/onedayrex.github.io.git
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
+        git config --global init.defaultBranch master
         cd ./public && git init && git add .
         git config --global user.name $GIT_NAME
         git config --global user.email $GIT_EMAIL
