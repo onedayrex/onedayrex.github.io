@@ -74,9 +74,7 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: hexo-theme-yinwang
 
-# Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  type: git
-  repository: git@github.com:onedayrex/onedayrex.github.io.git
-  branch: main
+# 文章列表
+list:
+  date: true        # 文章列表是否显示日期
+  wordcount: true  # 是否显示字数统计
