@@ -39,22 +39,23 @@ yarn add nw --dev
 
 ### 添加启动参数
 
-原来`vue`启动是使用`yarn serve`，在`package.json`中可以看到最终的命令是`vue-cli-service serve`，我们需要做的事情第一是编译构建启动`vue`，前面的命令就能满足，第二是启动`nw.js`并且把`vue`的内容套在`nw.js`中，`nw.js`的启动命令是`nw .`，在`vue-cli-service serve`命令后加上就行需要注意这里使用`&`来添加`nw .`，因为`vue`启动后是挂起的，使用`&`表示前一个执行没有完成也要执行后一个，如果用`&&`则会出现`vue`启动后一直挂起没有启动`nw.js`的情况，完整的`package.json`如下：
+原来`vue`启动是使用`yarn serve`，在`package.json`中可以看到最终的命令是`vue-cli-service serve`，我们需要做的事情第一是编译构建启动`vue`，前面的命令就能满足，第二是启动`nw.js`并且把`vue`的内容套在`nw.js`中，`nw.js`的启动命令是`nw .`，在`vue-cli-service serve`命令后加上就行需要注意这里使用`concurrently`来添加`nw .`，因为`vue`启动后是挂起的，使用`concurrentley`表示同时执行两个命令，如果用`&&`则会出现`vue`启动后一直挂起没有启动`nw.js`的情况，完整的`package.json`如下：
 
 ```json
 {
-  "name": "oms-conver",
+  "name": "conver",
   "version": "0.1.0",
-  "main": "http://localhost:8081",
+  "main": "http://localhost:8080",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve & nw .",
+    "serve": "concurrently \"vue-cli-service serve\" \"nw .\"",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "vue": "^3.2.36"
+    "vue": "^3.2.36",
+    "vue-router": "4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -62,6 +63,7 @@ yarn add nw --dev
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "concurrently": "^8.2.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "nw": "^0.78.0"
@@ -88,6 +90,6 @@ yarn add nw --dev
   ]
 }
 
-```
 
+```
 
