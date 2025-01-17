@@ -14,7 +14,7 @@ table {
 /* end reset CSS */
 
 body {
-  font-family: "lucida grande", "lucida sans unicode", lucida, helvetica,
+  font-family: "LXGW Wenkai Screen","lucida grande", "lucida sans unicode", lucida, helvetica,
     "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   font-size: 18px;
 }
@@ -29,7 +29,7 @@ li {
 }
 
 H1 {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, Helvetica, STKaiti,
+  font-family: "LXGW Wenkai Screen","Palatino Linotype", "Book Antiqua", Palatino, Helvetica, STKaiti,
     SimSun, serif;
   line-height: 1;
   color: #666666;
@@ -37,7 +37,7 @@ H1 {
 }
 
 H2 {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, Helvetica, STKaiti,
+  font-family: "LXGW Wenkai Screen","Palatino Linotype", "Book Antiqua", Palatino, Helvetica, STKaiti,
     SimSun, serif;
   margin-bottom: 40px;
   padding: 5px;
@@ -48,7 +48,7 @@ H2 {
 }
 
 H3 {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, Helvetica, STKaiti,
+  font-family: "LXGW Wenkai Screen","Palatino Linotype", "Book Antiqua", Palatino, Helvetica, STKaiti,
     SimSun, serif;
   margin-top: 40px;
   margin-bottom: 30px;
@@ -59,7 +59,7 @@ H3 {
 }
 
 H4 {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, Helvetica, STKaiti,
+  font-family: "LXGW Wenkai Screen","Palatino Linotype", "Book Antiqua", Palatino, Helvetica, STKaiti,
     SimSun, serif;
   margin-top: 40px;
   margin-bottom: 30px;

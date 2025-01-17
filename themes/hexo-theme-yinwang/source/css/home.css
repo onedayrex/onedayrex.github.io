@@ -9,7 +9,7 @@ table {
 /* end reset CSS */
 
 body {
-  font-family: STFangSong, Helvetica, Arial, Vernada, Tahoma, STXihei,
+  font-family: "LXGW Wenkai Screen",STFangSong, Helvetica, Arial, Vernada, Tahoma, STXihei,
     "Microsoft YaHei", "Songti SC", SimSun, Heiti, sans-serif;
   font-size: 21px;
 }
@@ -19,7 +19,7 @@ body.mobile {
 }
 
 .navbar-brand {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, Helvetica, STKaiti,
+  font-family: "LXGW Wenkai Screen","Palatino Linotype", "Book Antiqua", Palatino, Helvetica, STKaiti,
     SimSun, serif;
   font-size: 100%;
 }
