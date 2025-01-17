@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><title>Redis中的BitMap使用</title><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=0.5"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/css/highlight/xcode.min.css"><link rel="stylesheet" href="/css/bootstrap/bootstrap-tooltips.css"><link rel="stylesheet" href="/css/post.css"><script src="/js/jquery.min.js"></script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://registry.npmmirror.com/lxgw-wenkai-screen-web/latest/files/style.min.css" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><script>if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) {
+  document.body.classList.add('mobile')
+}</script><div><div class="inner"><h2>Redis中的BitMap使用</h2><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>使用最小的计量单位来存储数据，只能存储0或1，每一个上是1bit，8bit&#x3D;1b&#x3D;0.001kb，在<code>redis</code>中一个Key对应一个bitmap,一个bitmap可以存储2^32的数据，也就是512Mb，bitmap可以看成一个数组，通过offset下标来访问。其中能存储的信息大小最多为2个，0或者1.</p>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><pre><code>setbit key offset value
+</code></pre>
+<p><code>setbit</code>设置<code>bitmap</code>值，<code>key</code>为<code>bitmap</code>名称，<code>offset</code>为<code>bitmap</code>下标，<code>value</code>为对应的值，只能设置0或1,也就是<code>true</code>和<code>false</code>。<br>例如：</p>
+<pre><code>setbit sign 0 1
+</code></pre>
+<p>设置名称为sign的<code>bitmap</code>的第0个位置为1</p>
+<pre><code>getbit key offset
+</code></pre>
+<p><code>getbit</code>获取<code>bitmap</code>的值，<code>key</code>为<code>bitmap</code>名称，<code>offset</code>为<code>bitmap</code>下标<br>例如：</p>
+<pre><code>getbit sign 1
+</code></pre>
+<p>获取名称为sign的<code>bitmap</code>的第1个位置的值</p>
+<pre><code>bitop operation destkey key [key ...]
+</code></pre>
+<p>通过操作多个<code>bitmap</code>来进行<code>AND</code>、<code>XOR</code>、<code>NOT</code>等来进行结果比较，值存放在destkey中<br>例如：对公司100名员工每天打卡做一个记录，每天生成一个<code>bitmap</code>，需要统计这一个月有哪些员工是没有迟到过的，可以使用每天生成的<code>bitmap</code>做<code>AND</code>操作，结果在<code>destkey</code>中，也是一个<code>bitmap</code><br>如：<code>bitop and result sign01 sign02</code>  等等，这样操作后再去<code>getbit</code>就可以得到哪些员工是1的则为没有迟到过的。</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>1.基于最小的单位bit进行存储，所以非常省空间。<br>2.设置时候时间复杂度O(1)、读取时候时间复杂度O(n)，操作是非常快的。<br>3.二进制数据的存储，进行相关计算的时候非常快。<br>4.方便扩容</p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>redis中bit映射被限制在512MB之内，所以最大是2^32位。建议每个key的位数都控制下，因为读取时候时间复杂度O(n)，越大的串读的时间花销越多。</p>
+<h2 id="空间计算方式"><a href="#空间计算方式" class="headerlink" title="空间计算方式"></a>空间计算方式</h2><p>大概的空间占用计算公式是：($offset&#x2F;8&#x2F;1024&#x2F;1024)MB</p>
+<p><span>↶ </span><a href="/">返回首页</a><span></span></p></div></div></body><script src="/js/highlight.min.js"></script><script src="/js/main.js"></script><script src="/js/bootstrap/bootstrap.min.js"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '');</script></html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><title>vue+nwjs</title><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=0.5"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/css/highlight/xcode.min.css"><link rel="stylesheet" href="/css/bootstrap/bootstrap-tooltips.css"><link rel="stylesheet" href="/css/post.css"><script src="/js/jquery.min.js"></script><!-- hexo injector head_end start --><link rel="stylesheet" href="https://registry.npmmirror.com/lxgw-wenkai-screen-web/latest/files/style.min.css" /><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><script>if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) {
+  document.body.classList.add('mobile')
+}</script><div><div class="inner"><h2>vue+nwjs</h2><h2 id="1、创建正常的vue项目"><a href="#1、创建正常的vue项目" class="headerlink" title="1、创建正常的vue项目"></a>1、创建正常的vue项目</h2><p>使用<code>vue-cli</code>工具创建<code>vue</code>项目</p>
+<pre><code class="bash">#全局安装或更新vue-cli工具
+npm i -g @vue/cli
+
+#创建vue项目
+vue create 项目名
+
+#创建好后先运行看vue是否搭建完成
+cd 项目目录
+yarn serve
+</code></pre>
+<h2 id="2、添加nw-js依赖"><a href="#2、添加nw-js依赖" class="headerlink" title="2、添加nw.js依赖"></a>2、添加nw.js依赖</h2><pre><code class="bash">#在vue项目下安装nw.js依赖，这里安装在当前项目下，也可以全局安装，这里只安装在项目dev环境中
+yarn add nw --dev
+</code></pre>
+<h2 id="3、修改package-json添加nw-js配置"><a href="#3、修改package-json添加nw-js配置" class="headerlink" title="3、修改package.json添加nw.js配置"></a>3、修改<code>package.json</code>添加<code>nw.js</code>配置</h2><h3 id="添加nw-js主配置"><a href="#添加nw-js主配置" class="headerlink" title="添加nw.js主配置"></a>添加nw.js主配置</h3><p>在<code>package.json</code>中添<code>nw.js</code>需要的配置，添加<code>main</code>，这里配置为需要启动<code>nw.js</code>的路径或者<code>url</code>，这里配置为<code>vue</code>启动后的开发地址<code>http://localhost:8080</code></p>
+<h3 id="添加启动参数"><a href="#添加启动参数" class="headerlink" title="添加启动参数"></a>添加启动参数</h3><p>原来<code>vue</code>启动是使用<code>yarn serve</code>，在<code>package.json</code>中可以看到最终的命令是<code>vue-cli-service serve</code>，我们需要做的事情第一是编译构建启动<code>vue</code>，前面的命令就能满足，第二是启动<code>nw.js</code>并且把<code>vue</code>的内容套在<code>nw.js</code>中，<code>nw.js</code>的启动命令是<code>nw .</code>，在<code>vue-cli-service serve</code>命令后加上就行需要注意这里使用<code>concurrently</code>来添加<code>nw .</code>，因为<code>vue</code>启动后是挂起的，使用<code>concurrentley</code>表示同时执行两个命令，如果用<code>&amp;&amp;</code>则会出现<code>vue</code>启动后一直挂起没有启动<code>nw.js</code>的情况，完整的<code>package.json</code>如下：</p>
+<pre><code class="json">&#123;
+  &quot;name&quot;: &quot;conver&quot;,
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;main&quot;: &quot;http://localhost:8080&quot;,
+  &quot;private&quot;: true,
+  &quot;scripts&quot;: &#123;
+    &quot;serve&quot;: &quot;concurrently \&quot;vue-cli-service serve\&quot; \&quot;nw .\&quot;&quot;,
+    &quot;build&quot;: &quot;vue-cli-service build&quot;,
+    &quot;lint&quot;: &quot;vue-cli-service lint&quot;
+  &#125;,
+  &quot;dependencies&quot;: &#123;
+    &quot;core-js&quot;: &quot;^3.8.3&quot;,
+    &quot;vue&quot;: &quot;^3.2.36&quot;,
+    &quot;vue-router&quot;: &quot;4&quot;
+  &#125;,
+  &quot;devDependencies&quot;: &#123;
+    &quot;@babel/core&quot;: &quot;^7.12.16&quot;,
+    &quot;@babel/eslint-parser&quot;: &quot;^7.12.16&quot;,
+    &quot;@vue/cli-plugin-babel&quot;: &quot;~5.0.0&quot;,
+    &quot;@vue/cli-plugin-eslint&quot;: &quot;~5.0.0&quot;,
+    &quot;@vue/cli-service&quot;: &quot;~5.0.0&quot;,
+    &quot;concurrently&quot;: &quot;^8.2.0&quot;,
+    &quot;eslint&quot;: &quot;^7.32.0&quot;,
+    &quot;eslint-plugin-vue&quot;: &quot;^8.0.3&quot;,
+    &quot;nw&quot;: &quot;^0.78.0&quot;
+  &#125;,
+  &quot;eslintConfig&quot;: &#123;
+    &quot;root&quot;: true,
+    &quot;env&quot;: &#123;
+      &quot;node&quot;: true
+    &#125;,
+    &quot;extends&quot;: [
+      &quot;plugin:vue/vue3-essential&quot;,
+      &quot;eslint:recommended&quot;
+    ],
+    &quot;parserOptions&quot;: &#123;
+      &quot;parser&quot;: &quot;@babel/eslint-parser&quot;
+    &#125;,
+    &quot;rules&quot;: &#123;&#125;
+  &#125;,
+  &quot;browserslist&quot;: [
+    &quot;&gt; 1%&quot;,
+    &quot;last 2 versions&quot;,
+    &quot;not dead&quot;,
+    &quot;not ie 11&quot;
+  ]
+&#125;
+
+</code></pre>
+<p><span>↶ </span><a href="/">返回首页</a><span></span></p></div></div></body><script src="/js/highlight.min.js"></script><script src="/js/main.js"></script><script src="/js/bootstrap/bootstrap.min.js"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '');</script></html>
