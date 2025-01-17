@@ -29,7 +29,7 @@ footer:
 post:
   title_h1: false              # 文章是否使用 h1 标题
   blank: false                 # 文章是否新标签页打开
-  backHome: false              # 文章末尾是否显示返回首页
+  backHome: true             # 文章末尾是否显示返回首页
   backhome_right: false        # 返回首页内容是否右对齐
   backHome_hr: false           # 返回首页前是否显示分割线
   backHome_prefix: "↶ "        # 返回首页的前缀内容
